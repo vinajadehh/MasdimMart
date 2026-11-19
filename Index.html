@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1769d2">
+<title>MASDIM MART | Online Shopping</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #1769d2;
+  --blue2: #4b9cff;
+  --dark: #102747;
+  --bg: #f2f7ff;
+  --white: #fff;
+  --muted: #718096;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+}
+
+button { font-family: inherit; cursor: pointer; }
+
+header {
+  background: white;
+  padding: 16px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 3px 18px #163c6710;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--dark); }
+
+.search {
+  width: 40%;
+  padding: 12px 17px;
+  border: 1px solid #dce7f5;
+  border-radius: 30px;
+  background: #f6f9ff;
+  outline: none;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+}
+
+nav button {
+  background: transparent;
+  border: 0;
+  padding: 10px;
+  color: #536780;
+  font-weight: 700;
+}
+
+nav button:hover { color: var(--blue); }
+
+.container {
+  max-width: 1150px;
+  margin: auto;
+  padding: 28px 20px 90px;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+.hero {
+  background: linear-gradient(120deg,#1255b5,#4b9cff);
+  color: white;
+  border-radius: 25px;
+  padding: 55px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero:after {
+  content: "🛍️";
+  position: absolute;
+  right: 8%;
+  top: 15%;
+  font-size: 110px;
+  transform: rotate(-12deg);
+}
+
+.hero h1 {
+  font-size: clamp(32px,5vw,52px);
+  max-width: 570px;
+  line-height: 1.1;
+  margin: 12px 0;
+}
+
+.hero p {
+  max-width: 430px;
+  color: #e6f1ff;
+}
+
+.btn {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  padding: 12px 19px;
+  border-radius: 12px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.hero .btn {
+  background: white;
+  color: var(--blue);
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 18px;
+}
+
+.section-title h2 { margin: 0; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 17px;
+}
+
+.product {
+  background: white;
+  border-radius: 18px;
+  padding: 13px;
+  box-shadow: 0 5px 20px #1d47730a;
+}
+
+.product-image {
+  height: 150px;
+  display: grid;
+  place-items: center;
+  background: #eaf3ff;
+  border-radius: 13px;
+  font-size: 65px;
+}
+
+.product h3 { font-size: 15px; margin-bottom: 5px; }
+.price { color: var(--blue); font-weight: 800; }
+.product button { width: 100%; }
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+}
+
+.category {
+  background: white;
+  padding: 22px 10px;
+  text-align: center;
+  border-radius: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.category div { font-size: 36px; margin-bottom: 8px; }
+
+.panel {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 18px;
+}
+
+.muted { color: var(--muted); }
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #edf1f7;
+  padding: 14px 0;
+}
+
+.cart-item button {
+  border: 0;
+  background: #eaf2ff;
+  color: var(--blue);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.error-box {
+  text-align: center;
+  padding: 65px 15px;
+  background: white;
+  border-radius: 20px;
+}
+
+.error-icon { font-size: 60px; }
+
+.error-code {
+  background: #fff0f0;
+  color: #bd3434;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 12px;
+  text-align: left;
+  overflow-wrap: anywhere;
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.about-card {
+  border-left: 5px solid var(--blue);
+  background: #edf5ff;
+  padding: 20px;
+  border-radius: 12px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media(max-width:750px) {
+  header { flex-wrap: wrap; }
+  .search { order: 3; width: 100%; }
+  nav { width: 100%; justify-content: space-between; }
+  nav button { font-size: 11px; padding: 7px 3px; }
+  .grid { grid-template-columns: repeat(2,1fr); }
+  .category-grid { grid-template-columns: repeat(2,1fr); }
+  .hero { padding: 35px 22px; }
+  .hero:after { opacity: .3; right: 2%; top: 5%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MASDIM <span>MART.</span></div>
+  <input class="search" id="search" placeholder="Cari produk..." oninput="searchProducts()">
+  <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('categories')">Kategori</button>
+    <button onclick="showPage('cart')">Keranjang <span id="cartCount">0</span></button>
+    <button onclick="showPage('profile')">Profil</button>
+    <button onclick="showPage('about')">About</button>
+  </nav>
+</header>
+
+<main class="container">
+
+<section id="home" class="page active">
+  <div class="hero">
+    <small>WELCOME TO MASDIM MART</small>
+    <h1>Belanja Lebih Mudah, Setiap Hari.</h1>
+    <p>Temukan produk favoritmu dengan pengalaman belanja yang praktis.</p>
+    <button class="btn" onclick="showPage('categories')">Mulai Belanja →</button>
+  </div>
+
+  <div class="section-title">
+    <h2>Produk Pilihan</h2>
+    <span class="muted">Pilihan terbaik kami</span>
+  </div>
+  <div class="grid" id="products"></div>
+</section>
+
+<section id="categories" class="page">
+  <h1>Kategori Produk</h1>
+  <p class="muted">Pilih kategori favoritmu.</p>
+  <div class="category-grid">
+    <div class="category" onclick="filterCategory('Elektronik')"><div>🎧</div>Elektronik</div>
+    <div class="category" onclick="filterCategory('Fashion')"><div>👕</div>Fashion</div>
+    <div class="category" onclick="filterCategory('Lifestyle')"><div>⌚</div>Lifestyle</div>
+    <div class="category" onclick="filterCategory('Aksesoris')"><div>🎒</div>Aksesoris</div>
+  </div>
+  <div class="section-title"><h2>Daftar Produk</h2></div>
+  <div class="grid" id="categoryProducts"></div>
+</section>
+
+<section id="cart" class="page">
+  <h1>Keranjang Belanja 🛒</h1>
+  <div class="panel" id="cartItems"></div>
+</section>
+
+<section id="profile" class="page">
+  <div class="error-box">
+    <div class="error-icon">⚠️</div>
+    <h1>Application Error</h1>
+    <p>Something went wrong while loading your profile.</p>
+    <div class="error-code">
+      TypeError: Cannot read properties of undefined (reading 'user')
+      <br><br>
+      at ProfileModule.loadUser()
+      <br>
+      at renderProfile()
+    </div>
+    <p class="muted">Gagal memuat data profil. Silakan coba lagi nanti.</p>
+    <button class="btn" onclick="showPage('home')">Kembali ke Home</button>
+  </div>
+</section>
+
+<section id="about" class="page">
+  <h1>About This Application</h1>
+  <p class="muted">Informasi aplikasi dan developer.</p>
+
+  <div class="panel">
+    <h2>MASDIM MART</h2>
+    <p>Online Shopping Platform</p>
+    <hr>
+    <div class="about-card">
+      <b>Developer Information</b><br>
+      Original Developer: <b>Arya Fauzi</b><br>
+      Original Project: <b>Nova Market</b>
+    </div>
+    <p class="muted">
+      Demo fiksi untuk kebutuhan drama sekolah mengenai plagiarisme,
+      hak cipta, dan etika penggunaan karya digital.
+    </p>
+    <small>Version 1.0.0 · MASDIM MART</small>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  MASDIM MART © 2026 · Demo toko online untuk drama sekolah.
+  <br>Tidak ada transaksi atau pembayaran sungguhan.
+</footer>
+
+<script>
+const products = [
+  {id:1,name:"Wireless Headphone",price:125000,icon:"🎧",cat:"Elektronik"},
+  {id:2,name:"Smart Watch",price:230000,icon:"⌚",cat:"Elektronik"},
+  {id:3,name:"Casual T-Shirt",price:85000,icon:"👕",cat:"Fashion"},
+  {id:4,name:"Sneakers",price:275000,icon:"👟",cat:"Fashion"},
+  {id:5,name:"Backpack",price:145000,icon:"🎒",cat:"Aksesoris"},
+  {id:6,name:"Sunglasses",price:95000,icon:"🕶️",cat:"Aksesoris"},
+  {id:7,name:"Desk Lamp",price:110000,icon:"💡",cat:"Lifestyle"},
+  {id:8,name:"Water Bottle",price:45000,icon:"🥤",cat:"Lifestyle"}
+];
+
+let cart = [];
+
+function money(n) {
+  return "Rp" + n.toLocaleString("id-ID");
+}
+
+function renderProducts(list,target) {
+  document.getElementById(target).innerHTML = list.map(p => `
+    <div class="product">
+      <div class="product-image">${p.icon}</div>
+      <h3>${p.name}</h3>
+      <div class="price">${money(p.price)}</div>
+      <button class="btn" onclick="addCart(${p.id})">+ Keranjang</button>
+    </div>
+  `).join("");
+}
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const page = document.getElementById(id);
+  if (page) page.classList.add("active");
+
+  if(id === "cart") renderCart();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function addCart(id) {
+  const item = cart.find(p => p.id === id);
+  if(item) item.qty++;
+  else cart.push({...products.find(p => p.id === id),qty:1});
+
+  updateCount();
+  alert("Produk berhasil ditambahkan!");
+}
+
+function updateCount() {
+  document.getElementById("cartCount").textContent =
+    cart.reduce((sum,p) => sum + p.qty,0);
+}
+
+function renderCart() {
+  const box = document.getElementById("cartItems");
+
+  if(cart.length === 0) {
+    box.innerHTML = "<h3>Keranjang masih kosong 🛒</h3><p class='muted'>Yuk, mulai belanja!</p>";
+    return;
+  }
+
+  let total = 0;
+
+  box.innerHTML = cart.map(p => {
+    total += p.price * p.qty;
+    return `
+      <div class="cart-item">
+        <div>${p.icon} <b>${p.name}</b><br>
+        <small>${money(p.price)} × ${p.qty}</small></div>
+        <button onclick="removeCart(${p.id})">Hapus</button>
+      </div>
+    `;
+  }).join("") + `
+    <h3>Total: ${money(total)}</h3>
+    <button class="btn" onclick="alert('Ini hanya simulasi checkout.')">
+      Checkout
+    </button>
+  `;
+}
+
+function removeCart(id) {
+  cart = cart.filter(p => p.id !== id);
+  updateCount();
+  renderCart();
+}
+
+function filterCategory(cat) {
+  const list = products.filter(p => p.cat === cat);
+  renderProducts(list,"categoryProducts");
+  showPage("categories");
+}
+
+function searchProducts() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const list = products.filter(p => p.name.toLowerCase().includes(q));
+  renderProducts(list,"products");
+}
+
+renderProducts(products,"products");
+renderProducts(products,"categoryProducts");
+</script>
+
+</body>
+  </html>
+  
